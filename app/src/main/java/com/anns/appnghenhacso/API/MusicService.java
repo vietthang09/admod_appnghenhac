@@ -12,9 +12,11 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
 import com.anns.appnghenhacso.MainActivity;
 import com.anns.appnghenhacso.Model.Item;
 import com.anns.appnghenhacso.R;
@@ -45,11 +47,12 @@ public class MusicService extends Service {
     ArrayList<Item> item_mini;
     MediaSessionCompat mediaSession;
     ActionPlaying actionPlaying;
+
     @Override
     public void onCreate() {
         super.onCreate();
         musicFiles = mangbaihat;
-        mediaSession = new MediaSessionCompat(this,"PlayerAudio");
+        mediaSession = new MediaSessionCompat(this, "PlayerAudio");
         pref = getApplicationContext().getSharedPreferences("PREF", MODE_PRIVATE);
     }
 
@@ -60,15 +63,16 @@ public class MusicService extends Service {
     }
 
     public class MyBinder extends Binder {
-        public MusicService getService(){
+        public MusicService getService() {
             return MusicService.this;
         }
     }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String actionName = intent.getStringExtra("myActionName");
-        if(actionName!=null){
-            switch (actionName){
+        if (actionName != null) {
+            switch (actionName) {
                 case "ActionPrev":
                     actionPlaying.prevClick();
                     break;
@@ -91,39 +95,50 @@ public class MusicService extends Service {
     public void start() {
         mediaPlayer.start();
     }
+
     public boolean isPlaying() {
         return mediaPlayer.isPlaying();
     }
-    public void pause(){
+
+    public void pause() {
         mediaPlayer.pause();
     }
-    public void setDataSource(String uri){
+
+    public void setDataSource(String uri) {
         try {
             mediaPlayer.setDataSource(this, Uri.parse(uri));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
     public void stop() {
         mediaPlayer.stop();
     }
+
     public void release() {
         mediaPlayer.release();
     }
+
     public int getDuration() {
         return mediaPlayer.getDuration();
     }
-    public int getCurrentPosition(){
+
+    public int getCurrentPosition() {
         return mediaPlayer.getCurrentPosition();
     }
-    public void seekTo(int position){
+
+    public void seekTo(int position) {
         mediaPlayer.seekTo(position);
     }
-    public void createMediaPlayer(String url){
+
+    public void createMediaPlayer(String url) {
         uri = Uri.parse(url);
-        mediaPlayer = MediaPlayer.create(getBaseContext(),uri);
+        mediaPlayer = MediaPlayer.create(getBaseContext(), uri);
     }
-    public void setOnCompletionListener(){
+
+    public void setOnCompletionListener() {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -136,10 +151,12 @@ public class MusicService extends Service {
             }
         });
     }
-    public void setCallBack (ActionPlaying actionPlaying){
+
+    public void setCallBack(ActionPlaying actionPlaying) {
         this.actionPlaying = actionPlaying;
         System.out.println("Đã set");
     }
+
     private Bitmap getBitmapFromURL(String src) {
         try {
             URL url = new URL(src);

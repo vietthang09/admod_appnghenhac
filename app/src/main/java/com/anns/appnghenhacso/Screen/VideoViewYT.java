@@ -52,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
+public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
     VideoView videoview;
     String idVideo;
     String url;
@@ -60,13 +60,41 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
     ArrayList<ItemDetailVideoYT> item;
     MediaSessionCompat mediaSession;
     ArrayList<ItemYT> itemYTS;
-    public static int position = 0;
+    public int position = 0;
     Bitmap picture;
-    PendingIntent pendingIntent,pausependingIntent,nextpendingIntent,prevpendingIntent;
+    PendingIntent pendingIntent, pausependingIntent, nextpendingIntent, prevpendingIntent;
     LinearLayout loading_new;
-    Button button,btn144dp,btn360dp,btn720dp;
+    Button button, btn144dp, btn360dp, btn720dp;
     LinearLayout ln_grp_dp;
-    private  int duration = 0;
+    private int duration = 0;
+    private int currentPosition = 0;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        currentPosition = videoview.getCurrentPosition();
+        videoview.pause();
+        musicService.seekTo(currentPosition);
+        musicService.start();
+        TestNotify();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NotificationManagerCompat.from(VideoViewYT.this).cancelAll();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        currentPosition = musicService.getCurrentPosition();
+        musicService.pause();
+        videoview.seekTo(currentPosition);
+        videoview.start();
+        NotificationManagerCompat.from(VideoViewYT.this).cancelAll();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +103,7 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
         StrictMode.setThreadPolicy(policy);
 
         videoview = (VideoView) findViewById(R.id.videoView);
-        mediaSession = new MediaSessionCompat(this,"PlayerAudio");
+        mediaSession = new MediaSessionCompat(this, "PlayerAudio");
         button = findViewById(R.id.button);
         btn144dp = findViewById(R.id.btn144dp);
         btn360dp = findViewById(R.id.btn360dp);
@@ -89,17 +117,17 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
         ln_grp_dp.setVisibility(View.INVISIBLE);
 
         Intent intent = getIntent();
-        if(intent.hasExtra("idVideo")){
+        if (intent.hasExtra("idVideo")) {
             idVideo = intent.getStringExtra("idVideo");
             System.out.println("Đây là idVideo" + idVideo);
         }
-        if (intent.hasExtra("cacbaihat")){
+        if (intent.hasExtra("cacbaihat")) {
             ArrayList<ItemYT> items = (ArrayList<ItemYT>) intent.getSerializableExtra("cacbaihat");
             itemYTS = items;
         }
-        if(intent.hasExtra("index")){
-            position = intent.getIntExtra("index",0);
-            System.out.println("Đã set lại pos "+position);
+        if (intent.hasExtra("index")) {
+            position = intent.getIntExtra("index", 0);
+            System.out.println("Đã set lại pos " + position);
         }
         ServiceConnection serviceConnection = new ServiceConnection() {
             @Override
@@ -107,12 +135,12 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
                 MusicService.MyBinder myBinder = (MusicService.MyBinder) service;
                 musicService = myBinder.getService();
                 musicService.setCallBack(VideoViewYT.this);
-                if(musicService.mediaPlayer!=null){
+                if (musicService.mediaPlayer != null) {
                     Intent intent = getIntent();
                     musicService.stop();
-                    if(intent.hasExtra("CONTINUE")){
+                    if (intent.hasExtra("CONTINUE")) {
 
-                    }else{
+                    } else {
                         musicService.stop();
                     }
                 }
@@ -124,18 +152,19 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
                 musicService = null;
             }
         };
-        Intent serviceStartIntent = new Intent(this,MusicService.class);
-        bindService(serviceStartIntent, serviceConnection,BIND_AUTO_CREATE);
+        Intent serviceStartIntent = new Intent(this, MusicService.class);
+        bindService(serviceStartIntent, serviceConnection, BIND_AUTO_CREATE);
 
     }
 
-    private void eventClick(){
+
+    private void eventClick() {
         btn144dp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(item.size()!=0){
+                if (item.size() != 0) {
                     duration = videoview.getCurrentPosition();
-                    System.out.println(duration+ "duration hiện tại");
+                    System.out.println(duration + "duration hiện tại");
                     url = item.get(0).getUrl();
                     videoview.pause();
                     videoview.setVideoURI(Uri.parse(url));
@@ -143,7 +172,7 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
                     videoview.requestFocus();
                     videoview.seekTo(duration);
                     videoview.start();
-                    Toast.makeText(VideoViewYT.this,"Đang chuyển đổi chất lượng 144dp",Toast.LENGTH_LONG).show();
+                    Toast.makeText(VideoViewYT.this, "Đang chuyển đổi chất lượng 144dp", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -160,7 +189,7 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
                 videoview.requestFocus();
                 videoview.seekTo(duration);
                 videoview.start();
-                Toast.makeText(VideoViewYT.this,"Đang chuyển đổi chất lượng 360dp",Toast.LENGTH_LONG).show();
+                Toast.makeText(VideoViewYT.this, "Đang chuyển đổi chất lượng 360dp", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -175,12 +204,12 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
                 videoview.requestFocus();
                 videoview.seekTo(duration);
                 videoview.start();
-                Toast.makeText(VideoViewYT.this,"Đang chuyển đổi chất lượng 720dp",Toast.LENGTH_LONG).show();
+                Toast.makeText(VideoViewYT.this, "Đang chuyển đổi chất lượng 720dp", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void getDataDetail(){
+    private void getDataDetail() {
         DataserviceYT dataserviceYT = APIServiceSearchYT.getService();
         Call<RecordDetailVideoYT> callback = dataserviceYT.GetDetailVideo(idVideo);
         callback.enqueue(new Callback<RecordDetailVideoYT>() {
@@ -188,13 +217,11 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
             public void onResponse(Call<RecordDetailVideoYT> call, Response<RecordDetailVideoYT> response) {
                 RecordDetailVideoYT recordDetailVideoYT = response.body();
                 item = recordDetailVideoYT.getItemDetailVideoYTS();
-
                 url = item.get(1).getUrl();
                 musicService.createMediaPlayer(url);
                 Uri uri = Uri.parse(url);
                 videoview.setVideoURI(uri);
                 videoview.start();
-                TestNotify();
                 loading_new.setVisibility(View.INVISIBLE);
                 videoview.setVisibility(View.VISIBLE);
                 button.setVisibility(View.VISIBLE);
@@ -211,17 +238,16 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
     }
 
     public void onButtonClick(View v) {
-        if(videoview.isPlaying()){
+        if (videoview.isPlaying()) {
             videoview.pause();
-        }else{
+        } else {
             videoview.start();
         }
     }
+
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if ((keyCode == KeyEvent.KEYCODE_BACK))
-        {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             finish();
             videoview.pause();
             musicService.seekTo(videoview.getCurrentPosition());
@@ -231,18 +257,20 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
         }
         return super.onKeyDown(keyCode, event);
     }
-    private void UpdateTime(){
+
+    private void UpdateTime() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(videoview != null){
+                if (videoview != null) {
                     duration = videoview.getCurrentPosition();
                 }
             }
-        },300);
+        }, 300);
     }
-    private void setArrMusicMini(){
+
+    private void setArrMusicMini() {
         SharedPreferences pref = getSharedPreferences("PREF", MODE_PRIVATE);
         Gson gson = new Gson();
         pref.edit().putString("@Arr_Mini", null).commit();
@@ -279,7 +307,7 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
         }
     }
 
-    private void TestNotify(){
+    private void TestNotify() {
 
         createNotificationChannel();
         // Create an explicit intent for an Activity in your app
@@ -291,16 +319,15 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE);
-            pausependingIntent = PendingIntent.getBroadcast(this,0,pauseIntent,PendingIntent.FLAG_MUTABLE);
-            nextpendingIntent = PendingIntent.getBroadcast(this,0,nextIntent,PendingIntent.FLAG_MUTABLE);
-            prevpendingIntent = PendingIntent.getBroadcast(this,0,prevIntent,PendingIntent.FLAG_MUTABLE);
-        }
-        else{
+            pausependingIntent = PendingIntent.getBroadcast(this, 0, pauseIntent, PendingIntent.FLAG_MUTABLE);
+            nextpendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_MUTABLE);
+            prevpendingIntent = PendingIntent.getBroadcast(this, 0, prevIntent, PendingIntent.FLAG_MUTABLE);
+        } else {
 
             pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-            nextpendingIntent = PendingIntent.getBroadcast(this,0,nextIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-            pausependingIntent = PendingIntent.getBroadcast(this,0,pauseIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-            prevpendingIntent = PendingIntent.getBroadcast(this,0,prevIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+            nextpendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            pausependingIntent = PendingIntent.getBroadcast(this, 0, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            prevpendingIntent = PendingIntent.getBroadcast(this, 0, prevIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             System.out.println("zô nào");
         }
 
@@ -314,9 +341,9 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
                 .setContentTitle(itemYTS.get(position).getTitle())
                 .setContentText(itemYTS.get(position).getOwnerChannelText())
                 .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
-                .addAction(R.drawable.iconpreview_mini,"Previous",prevpendingIntent)
-                .addAction(R.drawable.iconpause_mini,"Pause",pausependingIntent)
-                .addAction(R.drawable.iconnext_mini,"Next",nextpendingIntent)
+                .addAction(R.drawable.iconpreview_mini, "Previous", prevpendingIntent)
+                .addAction(R.drawable.iconpause_mini, "Pause", pausependingIntent)
+                .addAction(R.drawable.iconnext_mini, "Next", nextpendingIntent)
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle().
                         setShowActionsInCompactView(1 /* #1: pause button */).
                         setMediaSession(mediaSession.getSessionToken()))
@@ -333,7 +360,7 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
         notificationManager.notify(0, builder.build());
     }
 
-    private void NotifyPause(){
+    private void NotifyPause() {
 
         createNotificationChannel();
         // Create an explicit intent for an Activity in your app
@@ -345,16 +372,15 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE);
-            pausependingIntent = PendingIntent.getBroadcast(this,0,pauseIntent,PendingIntent.FLAG_MUTABLE);
-            nextpendingIntent = PendingIntent.getBroadcast(this,0,nextIntent,PendingIntent.FLAG_MUTABLE);
-            prevpendingIntent = PendingIntent.getBroadcast(this,0,prevIntent,PendingIntent.FLAG_MUTABLE);
-        }
-        else{
+            pausependingIntent = PendingIntent.getBroadcast(this, 0, pauseIntent, PendingIntent.FLAG_MUTABLE);
+            nextpendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_MUTABLE);
+            prevpendingIntent = PendingIntent.getBroadcast(this, 0, prevIntent, PendingIntent.FLAG_MUTABLE);
+        } else {
 
             pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-            nextpendingIntent = PendingIntent.getBroadcast(this,0,nextIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-            pausependingIntent = PendingIntent.getBroadcast(this,0,pauseIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-            prevpendingIntent = PendingIntent.getBroadcast(this,0,prevIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+            nextpendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            pausependingIntent = PendingIntent.getBroadcast(this, 0, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            prevpendingIntent = PendingIntent.getBroadcast(this, 0, prevIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             System.out.println("zô nào");
         }
 
@@ -368,9 +394,9 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
                 .setContentTitle(itemYTS.get(position).getTitle())
                 .setContentText(itemYTS.get(position).getOwnerChannelText())
                 .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
-                .addAction(R.drawable.iconpreview_mini,"Previous",prevpendingIntent)
-                .addAction(R.drawable.iconplay_mini,"Pause",pausependingIntent)
-                .addAction(R.drawable.iconnext_mini,"Next",nextpendingIntent)
+                .addAction(R.drawable.iconpreview_mini, "Previous", prevpendingIntent)
+                .addAction(R.drawable.iconplay_mini, "Pause", pausependingIntent)
+                .addAction(R.drawable.iconnext_mini, "Next", nextpendingIntent)
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle().
                         setShowActionsInCompactView(1 /* #1: pause button */).
                         setMediaSession(mediaSession.getSessionToken()))
@@ -404,32 +430,32 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying{
 
     @Override
     public void nextClick() {
-        Toast.makeText(this,"Bạn đang nghe nhạc youtube, không thể chuyển bài",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Bạn đang nghe nhạc youtube, không thể chuyển bài", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void prevClick() {
-        Toast.makeText(this,"Bạn đang nghe nhạc youtube, không thể chuyển bài",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Bạn đang nghe nhạc youtube, không thể chuyển bài", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void playClick() {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
-        System.out.println(cn.getClassName() +"hey hey");
-        if(cn.getClassName().equals("com.anns.appnghenhacso.Screen.VideoViewYT")){
-            if(videoview.isPlaying()){
+        System.out.println(cn.getClassName() + "hey hey");
+        if (cn.getClassName().equals("com.anns.appnghenhacso.Screen.VideoViewYT")) {
+            if (videoview.isPlaying()) {
                 videoview.pause();
                 NotifyPause();
-            }else{
+            } else {
                 videoview.start();
                 TestNotify();
             }
-        }else{
-            if (musicService.isPlaying()){
+        } else {
+            if (musicService.isPlaying()) {
                 musicService.pause();
                 NotifyPause();
-            }else {
+            } else {
                 musicService.start();
                 TestNotify();
             }
