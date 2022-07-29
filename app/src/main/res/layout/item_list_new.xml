@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="10dp"
+>
+    <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:id="@+id/image_rcl_new"
+    />
+    <Button
+            android:id="@+id/btn_play_music_new"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:drawableTop="@drawable/ic_play_arrow_24"
+            android:gravity="center_horizontal|top"
+            app:iconTint="#f00"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/btn_play_music_new"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="100dp"
+    />
+
+</androidx.cardview.widget.CardView>

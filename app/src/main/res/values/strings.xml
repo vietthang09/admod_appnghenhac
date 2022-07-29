@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">appnghenhacso</string>
+
+    <!--    <string name="banner">ca-app-pub-7324973790140627/7448755776</string>-->
+    <!--    <string name="rewarded">ca-app-pub-7324973790140627/4247877363</string>-->
+
+    <string name="banner">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="rewarded">ca-app-pub-3940256099942544/5224354917</string>
+    <string name="open_app">ca-app-pub-3940256099942544~3347511713</string>
+
+    <string name="play_console_license">YOUR PLAY CONSOLE LISENCE KEY</string>
+    <string name="product_id">com.musi1995</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

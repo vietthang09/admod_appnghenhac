@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: com.anjlab.android.iab.v3:library:2.0.3@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dcfe6c42a6d48cdd9ce414b9a2ebd512/jetified-library-2.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/dbbb525098fe4a2aa149495ec61ea0ed/transformed/jetified-library-2.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/dbbb525098fe4a2aa149495ec61ea0ed/transformed/jetified-library-2.0.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/dbbb525098fe4a2aa149495ec61ea0ed/transformed/jetified-library-2.0.3/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.anjlab.android.iab.v3/library/2.0.3/bbf89f5b6aeb43d052e1a60a40e9215a34a1f36c/library-2.0.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.anjlab.android.iab.v3/library/2.0.3/8d976268ae00f9e58f238a694a6c0c4b80157663/library-2.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/category_6"
+    tools:context=".Screen.Purchase">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorBlue"
+    >
+        <ImageView
+                android:id="@+id/back_from_purchase"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_baseline_arrow_back"
+        />
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Cửa hàng"
+                android:textSize="26dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:gravity="center"
+
+        />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/upgrade_vip1"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:text="1$ cho gói 128kb"
+            android:background="@drawable/button_purchase"
+            android:layout_marginBottom="10dp"
+            />
+        <Button
+            android:id="@+id/upgrade_vip2"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:text="3$ cho gói 360kb"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_purchase"
+            />
+        <Button
+            android:id="@+id/upgrade_vip3"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:text="5$ cho gói 720kb"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_purchase"
+        />
+        <Button
+                android:id="@+id/sub1"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:text="10$ cho 7 ngày tải"
+                android:background="@drawable/button_purchase"
+        />
+        <Button
+                android:id="@+id/sub2"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:text="20$ cho 30 ngày tải nhạc"
+                android:background="@drawable/button_purchase"
+        />
+    </LinearLayout>
+</LinearLayout>

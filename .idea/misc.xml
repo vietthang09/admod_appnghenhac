@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/D/appnghenhacso/app/src/main/res/layout/activity_detail__category.xml" value="0.25" />
+        <entry key="..\:/D/appnghenhacso/app/src/main/res/layout/activity_detail__music.xml" value="0.25" />
+        <entry key="..\:/D/appnghenhacso/app/src/main/res/layout/fragment_dia_nhac.xml" value="0.25" />
+        <entry key="..\:/D/appnghenhacso/app/src/main/res/layout/fragment_play_danh_sach_cac_bai_hat.xml" value="0.25" />
+        <entry key="..\:/D/appnghenhacso/app/src/main/res/layout/fragmentdowload.xml" value="0.25" />
+        <entry key="..\:/D/appnghenhacso/app/src/main/res/layout/fragmentfavorite.xml" value="0.25" />
+        <entry key="..\:/D/appnghenhacso/app/src/main/res/layout/fragmenthome.xml" value="0.25" />
+        <entry key="..\:/D/appnghenhacso/app/src/main/res/layout/item_list_new.xml" value="0.1953125" />
+        <entry key="..\:/D/appnghenhacso/app/src/main/res/menu/bottom_nav.xml" value="0.1953125" />
+        <entry key="..\:/Job_Android_Period3/appnghenhacso/app/src/main/res/drawable/ic_baseline_favorite_black.xml" value="0.191" />
+        <entry key="..\:/Job_Android_Period3/appnghenhacso/app/src/main/res/layout/activity_purchase.xml" value="0.11510416666666666" />
+        <entry key="..\:/Job_Android_Period3/appnghenhacso/app/src/main/res/layout/activity_video_view_yt.xml" value="0.152" />
+        <entry key="..\:/Job_Android_Period3/appnghenhacso/app/src/main/res/layout/fragment_new.xml" value="0.11302083333333333" />
+        <entry key="..\:/Job_Android_Period3/appnghenhacso/app/src/main/res/layout/fragmentfavorite.xml" value="0.11510416666666666" />
+        <entry key="..\:/Job_Android_Period3/appnghenhacso/app/src/main/res/layout/fragmenthome.xml" value="0.11510416666666666" />
+        <entry key="..\:/Job_Android_Period3/appnghenhacso/app/src/main/res/layout/item_list_category.xml" value="0.22826086956521738" />
+        <entry key="..\:/Job_Android_Period3/appnghenhacso/app/src/main/res/layout/item_list_new.xml" value="0.11510416666666666" />
+        <entry key="..\:/Job_Android_Period3/appnghenhacso/app/src/main/res/layout/item_list_yt.xml" value="0.22826086956521738" />
+        <entry key="..\:/Job_Android_Period3/appnghenhacso/app/src/main/res/layout/item_load_more.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/drawable/button_purchase.xml" value="0.26205128205128203" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/activity_detail__category.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/activity_detail__music.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/activity_main.xml" value="0.20742753623188406" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/activity_purchase.xml" value="0.18385416666666668" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/activity_search__result.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/ad_unified.xml" value="0.1625" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/dong_play_bai_hat.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/fragment_dia_nhac.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/fragment_new.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/fragment_play_danh_sach_cac_bai_hat.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/fragmentdowload.xml" value="0.152" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/fragmentfavorite.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/fragmenthome.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/item_category.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/item_list_category.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/item_list_new.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/appnghenhacso/app/src/main/res/layout/slideimages.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
