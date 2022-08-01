@@ -19,21 +19,21 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".Screen.VideoViewYT"
+            android:name=".presentation.Screen.VideoViewYT"
             android:exported="false" />
         <activity
-            android:name=".Screen.Purchase"
+            android:name=".presentation.Screen.Purchase"
             android:exported="true" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-7324973790140627~8079311167" />
 
-        <activity android:name=".Screen.Search_Result" />
+        <activity android:name=".presentation.Screen.Search_Result" />
         <activity
-            android:name=".Screen.Detail_Music"
+            android:name=".presentation.Screen.Detail_Music"
             android:theme="@style/ThemePlayMusic" />
-        <activity android:name=".Screen.Detail_Category" />
+        <activity android:name=".presentation.Screen.Detail_Category" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -47,12 +47,12 @@
         </activity>
 
         <service
-            android:name=".API.MusicService"
+            android:name=".data.remote.API.MusicService"
             android:enabled="true"
             android:exported="true" />
 
         <receiver
-            android:name=".Screen.NotificationReceiver"
+            android:name=".presentation.Screen.NotificationReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
