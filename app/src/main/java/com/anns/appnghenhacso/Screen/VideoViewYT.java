@@ -9,6 +9,7 @@ import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -62,7 +63,7 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
     ArrayList<ItemYT> itemYTS;
     public int position = 0;
     Bitmap picture;
-    PendingIntent pendingIntent, pausependingIntent, nextpendingIntent, prevpendingIntent;
+    PendingIntent pendingIntent, pausependingIntent, nextpendingIntent, prevpendingIntent, onClickIntent;
     LinearLayout loading_new;
     Button button, btn144dp, btn360dp, btn720dp;
     LinearLayout ln_grp_dp;
@@ -82,7 +83,8 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        NotificationManagerCompat.from(VideoViewYT.this).cancelAll();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
     }
 
     @Override
@@ -92,7 +94,8 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
         musicService.pause();
         videoview.seekTo(currentPosition);
         videoview.start();
-        NotificationManagerCompat.from(VideoViewYT.this).cancelAll();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
     }
 
     @Override
@@ -119,7 +122,7 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
         Intent intent = getIntent();
         if (intent.hasExtra("idVideo")) {
             idVideo = intent.getStringExtra("idVideo");
-            System.out.println("Đây là idVideo" + idVideo);
+            Toast.makeText(this, idVideo, Toast.LENGTH_SHORT).show();
         }
         if (intent.hasExtra("cacbaihat")) {
             ArrayList<ItemYT> items = (ArrayList<ItemYT>) intent.getSerializableExtra("cacbaihat");
@@ -127,7 +130,10 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
         }
         if (intent.hasExtra("index")) {
             position = intent.getIntExtra("index", 0);
-            System.out.println("Đã set lại pos " + position);
+        }
+
+        if (intent.hasExtra("current_position")) {
+            currentPosition = intent.getIntExtra("current_position", 0);
         }
         ServiceConnection serviceConnection = new ServiceConnection() {
             @Override
@@ -221,6 +227,9 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
                 musicService.createMediaPlayer(url);
                 Uri uri = Uri.parse(url);
                 videoview.setVideoURI(uri);
+                if (currentPosition > 0) {
+                    videoview.seekTo(currentPosition);
+                }
                 videoview.start();
                 loading_new.setVisibility(View.INVISIBLE);
                 videoview.setVisibility(View.VISIBLE);
@@ -311,7 +320,11 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
 
         createNotificationChannel();
         // Create an explicit intent for an Activity in your app
-        Intent intent = new Intent(this, Search_Result.class);
+        Intent intent = new Intent(this, VideoViewYT.class);
+        intent.putExtra("idVideo", idVideo);
+        intent.putExtra("cacbaihat", itemYTS);
+        intent.putExtra("index", position);
+        intent.putExtra("current_position", musicService.getCurrentPosition());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         Intent prevIntent = new Intent(this, NotificationReceiver.class).setAction("ActionPrev");
         Intent pauseIntent = new Intent(this, NotificationReceiver.class).setAction("ActionPause");
@@ -324,7 +337,7 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
             prevpendingIntent = PendingIntent.getBroadcast(this, 0, prevIntent, PendingIntent.FLAG_MUTABLE);
         } else {
 
-            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             nextpendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             pausependingIntent = PendingIntent.getBroadcast(this, 0, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             prevpendingIntent = PendingIntent.getBroadcast(this, 0, prevIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -364,14 +377,18 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
 
         createNotificationChannel();
         // Create an explicit intent for an Activity in your app
-        Intent intent = new Intent(this, Search_Result.class);
+        Intent intent = new Intent(this, VideoViewYT.class);
+        intent.putExtra("idVideo", idVideo);
+        intent.putExtra("cacbaihat", itemYTS);
+        intent.putExtra("index", position);
+        intent.putExtra("current_position", musicService.getCurrentPosition());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         Intent prevIntent = new Intent(this, NotificationReceiver.class).setAction("ActionPrev");
         Intent pauseIntent = new Intent(this, NotificationReceiver.class).setAction("ActionPause");
         Intent nextIntent = new Intent(this, NotificationReceiver.class).setAction("ActionNext");
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             pausependingIntent = PendingIntent.getBroadcast(this, 0, pauseIntent, PendingIntent.FLAG_MUTABLE);
             nextpendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_MUTABLE);
             prevpendingIntent = PendingIntent.getBroadcast(this, 0, prevIntent, PendingIntent.FLAG_MUTABLE);

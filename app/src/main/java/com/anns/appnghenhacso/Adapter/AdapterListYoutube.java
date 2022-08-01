@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.anns.appnghenhacso.ModelYT.ItemYT;
 import com.anns.appnghenhacso.R;
-import com.anns.appnghenhacso.Screen.Detail_Music;
 import com.anns.appnghenhacso.Screen.VideoViewYT;
 import com.squareup.picasso.Picasso;
 
@@ -32,7 +31,7 @@ public class AdapterListYoutube extends RecyclerView.Adapter<AdapterListYoutube.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_list_yt,parent,false);
+        View view = inflater.inflate(R.layout.item_list_yt, parent, false);
         return new AdapterListYoutube.ViewHolder(view);
     }
 
@@ -49,9 +48,9 @@ public class AdapterListYoutube extends RecyclerView.Adapter<AdapterListYoutube.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, VideoViewYT.class);
-                intent.putExtra("idVideo",items.get(position).getId());
-                intent.putExtra("cacbaihat",items);
-                intent.putExtra("index",position);
+                intent.putExtra("idVideo", items.get(position).getId());
+                intent.putExtra("cacbaihat", items);
+                intent.putExtra("index", position);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
@@ -65,7 +64,8 @@ public class AdapterListYoutube extends RecyclerView.Adapter<AdapterListYoutube.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView thumbnail;
-        TextView title,ownerChannelText,publishedTimeText,viewCountText,lengthTextSimpleText;
+        TextView title, ownerChannelText, publishedTimeText, viewCountText, lengthTextSimpleText;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);

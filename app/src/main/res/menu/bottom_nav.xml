@@ -2,22 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:title="Trang chủ"
         android:icon="@drawable/ic_home_24"
-    />
+        android:title="Trang chủ" />
     <item
         android:id="@+id/nav_new"
-        android:title="Mới cập nhật"
         android:icon="@drawable/ic_baseline_fiber_new_24"
-    />
+        android:title="Mới cập nhật" />
     <item
         android:id="@+id/nav_favorites"
-        android:title="Yêu thích"
         android:icon="@drawable/ic_favorite_24"
-    />
+        android:title="Yêu thích" />
     <item
         android:id="@+id/nav_dowload"
-        android:title="Tải xuống"
         android:icon="@drawable/ic_cloud_download_24"
-    />
+        android:title="Tải xuống" />
 </menu>
