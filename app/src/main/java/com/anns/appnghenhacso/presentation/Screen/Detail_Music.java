@@ -368,6 +368,7 @@ public class Detail_Music extends AppCompatActivity implements ActionPlaying {
                         getSupportActionBar().setTitle(mangbaihat.get(position).getFields().getMusic_Title());
                     }
                 }
+                fragment_dia_nhac.resumeAnimator();
                 imgpreview.setClickable(false);
                 imgnext.setClickable(false);
                 TestNotify();
@@ -419,6 +420,7 @@ public class Detail_Music extends AppCompatActivity implements ActionPlaying {
                         getSupportActionBar().setTitle(mangbaihat.get(position).getFields().getMusic_Title());
                     }
                 }
+                fragment_dia_nhac.resumeAnimator();
                 imgpreview.setClickable(false);
                 imgnext.setClickable(false);
                 TestNotify();
