@@ -52,4 +52,12 @@ public class Fragment_Dia_Nhac extends Fragment {
 //            Picasso.get().load(hinhanh).into(circleImageView);
 //        }
     }
+
+    public void pauseAnimator() {
+        objectAnimator.pause();
+    }
+
+    public void resumeAnimator() {
+        objectAnimator.resume();
+    }
 }

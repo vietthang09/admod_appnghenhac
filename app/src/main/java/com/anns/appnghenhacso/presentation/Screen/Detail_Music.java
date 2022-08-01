@@ -258,10 +258,12 @@ public class Detail_Music extends AppCompatActivity implements ActionPlaying {
             public void onClick(View v) {
                 if (musicService.isPlaying()){
                     musicService.pause();
+                    fragment_dia_nhac.pauseAnimator();
                     imgplay.setImageResource(R.drawable.iconplay);
                     NotifyPause();
                 }else {
                     musicService.start();
+                    fragment_dia_nhac.resumeAnimator();
                     imgplay.setImageResource(R.drawable.iconpause);
                     TestNotify();
                 }
