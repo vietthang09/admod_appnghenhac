@@ -5,11 +5,13 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.anns.appnghenhacso.presentation.Fragment.*;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     final Fragment fragment4 = new FragmentDowload();
     Fragment active = fragment2;
     final FragmentManager fm = getSupportFragmentManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,16 +37,15 @@ public class MainActivity extends AppCompatActivity {
 //        transaction.replace(R.id.frament_container, new FragmentNew()).commit();
 
         fm.beginTransaction().add(R.id.frament_container, fragment3, "3").hide(fragment3).commit();
-        fm.beginTransaction().add(R.id.frament_container, fragment2, "2").commit();
-        fm.beginTransaction().add(R.id.frament_container,fragment1, "1").hide(fragment1).commit();
-        fm.beginTransaction().add(R.id.frament_container,fragment4, "4").hide(fragment4).commit();
+        fm.beginTransaction().add(R.id.frament_container, fragment2, "2").hide(fragment2).commit();
+        fm.beginTransaction().add(R.id.frament_container, fragment1, "1").commit();
+        fm.beginTransaction().add(R.id.frament_container, fragment4, "4").hide(fragment4).commit();
 
         Menu menu = bottomNav.getMenu();
-        menu.getItem(1).setChecked(true);
+        menu.getItem(0).setChecked(true);
 
         fragment_bottom = new FragmentBottomMusic();
-        fm.beginTransaction().add(R.id.frame_bottom,fragment_bottom);
-
+        fm.beginTransaction().add(R.id.frame_bottom, fragment_bottom);
 
 
     }
@@ -54,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedfragment = null;
 
-                    switch (item.getItemId()){
-                        case R.id.nav_home :
+                    switch (item.getItemId()) {
+                        case R.id.nav_home:
                             fm.beginTransaction().hide(active).show(fragment1).commit();
                             active = fragment1;
                             return true;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                             return true;
 //                            selectedfragment = new FragmentNew();
 //                            break;
-                        case R.id.nav_favorites :
+                        case R.id.nav_favorites:
                             fm.beginTransaction().hide(active).show(fragment3).commit();
                             active = fragment3;
                             return true;
@@ -89,12 +91,13 @@ public class MainActivity extends AppCompatActivity {
 //                    return true;
                 }
             };
+
     @Override
     protected void onResume() {
         super.onResume();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         FragmentBottomMusic fragment_bottom = new FragmentBottomMusic();
-        transaction.replace(R.id.frame_bottom,fragment_bottom);
+        transaction.replace(R.id.frame_bottom, fragment_bottom);
         transaction.commit();
     }
 

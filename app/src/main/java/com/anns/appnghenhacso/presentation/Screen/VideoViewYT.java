@@ -118,7 +118,6 @@ public class VideoViewYT extends AppCompatActivity implements ActionPlaying {
         Intent intent = getIntent();
         if (intent.hasExtra("idVideo")) {
             idVideo = intent.getStringExtra("idVideo");
-            Toast.makeText(this, idVideo, Toast.LENGTH_SHORT).show();
         }
         if (intent.hasExtra("cacbaihat")) {
             ArrayList<ItemYT> items = (ArrayList<ItemYT>) intent.getSerializableExtra("cacbaihat");
